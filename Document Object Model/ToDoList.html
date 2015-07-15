@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Document Object Model</title>
+</head>
+<style>
+	#new-event-form label{
+		display: inline-block;
+		width: 100px;		
+	}
+
+	#new-event-form div{
+		margin: 5px;
+	}
+
+	fieldset{
+		display: block;
+		width: 350px;
+	}
+
+	.btn-remove-element{
+		display: block;
+		width: 65px;
+		height: 20px;
+	}
+</style>
+<body>	
+	<fieldset>
+		<legend>Add new event</legend>
+		<form id="new-event-form">
+			<div>
+				<label for="start-date">Start Date</label>
+				<input type="date" id="start-date">
+			</div>
+			<div><label for="end-date">End Date</label>
+				<input type="date" id="end-date">
+			</div>
+			<div>			
+				<label for="location">Location</label>
+				<input type="text" id="location">
+			</div>
+			<div>			
+				<label for="description">Description</label>
+				<textarea id="description"></textarea>
+			</div>
+
+			<input type="button" id="submit-new-event" value="Create new event">
+			<input type="reset">
+		</form>
+	</fieldset>
+	<fieldset id="created-events">		
+	</fieldset>
+	<script type="text/javascript" src="script.js"></script>
+</body>
+</html>
