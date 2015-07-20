@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Select</title>
+		<script type="text/javascript" src="handlebars-v3.0.3.js"></script>
+	</head>
+	<body>
+		<p id="selectedValue">default text</p>
+		<script type="handlebars-text/javascript" id="pattern-select">
+		<select name="{{name}}" id="{{id}}">
+				{{#listOfOptions}}
+				<option value="{{value}}">{{text}}</option>
+				{{/listOfOptions}}
+		</select>
+		</script>
+
+		<script src="script.js"></script>
+	</body>
+</html>
