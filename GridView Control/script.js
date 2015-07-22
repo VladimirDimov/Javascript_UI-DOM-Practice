@@ -34,6 +34,8 @@ var controls = (function() {
 						curCol.innerHTML = this.header[i];
 						headerRow.appendChild(curCol);
 					}
+
+					tableHeader.style.backgroundColor = 'gray';
 				}
 
 				var numberOfRows = this.rows.length;
@@ -44,7 +46,13 @@ var controls = (function() {
 					for (var j = 0; j < numberOfRows; j++) {
 						var curRowNode = document.createElement('tr');
 						tableBody.appendChild(curRowNode);
+
 						curRowElement = this.rows[j];
+
+						if (curRowElement.nestedGridView !== null) {
+							curRowNode.className += ' has-nestedGrdView';
+						};
+
 						var numberOfCols = curRowElement.columns.length;
 
 						for (var col = 0; col < numberOfCols; col++) {
@@ -55,16 +63,28 @@ var controls = (function() {
 
 						if (curRowElement.nestedGridView !== null) {
 							curRowNode = document.createElement('tr');
-							curRowNode.className = 'nested-table-container';
+							curRowNode.className = 'nested-table-container';							
 							tableBody.appendChild(curRowNode);
 							var nestedTableCol = document.createElement('td');
 							nestedTableCol.colSpan = this.rows[0].columns.length;
 							curRowNode.appendChild(nestedTableCol);
+							nestedTableCol.style.alignItems = 'center';
 							curRowElement.nestedGridView.container = nestedTableCol;
 							curRowElement.nestedGridView.render();
 						}
 					}
 				}
+
+				tableBody.addEventListener('click', function(ev) {
+					if (ev.target.parentNode.className.indexOf('has-nestedGrdView') !== -1) {
+						var rowWithNested = ev.target.parentNode.nextSibling;
+						if (rowWithNested.style.display === 'none') {
+							rowWithNested.style.display = '';
+						} else {
+							rowWithNested.style.display = 'none';
+						}
+					};
+				});
 
 				this.container.appendChild(mainTable);
 			}
