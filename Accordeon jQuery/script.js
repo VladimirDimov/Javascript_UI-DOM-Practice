@@ -6,20 +6,24 @@
 		$expandable = $nestedUl.prev();
 		$expandable.on('click', function() {
 			var $this = $(this);
-			$this.next().delay(1000).toggle();
+			$this.next().toggle(200);
+		});
+
+		$expandable.hover(function() {
+			$(this).css('cursor', 'pointer');
+			$(this).css('background-color', 'gray');
+		}, function(){
+			$(this).css('background-color', 'white');
 		});
 
 		// CSS
 		$('li').css('list-style', 'none');
 		$('p').css('width', '150px');
 		$('p').css('border', '1px solid black');
-		$('p').each(function() {
-			var $this = $(this)
-			var red = 255 - $this.parents().length * 10;
-			$this.css('background-color', 'rgb(' + red + ', 0,0)');
-		});
 
-
+		var $nestedTitle = $nestedUl.prev('p');
+		$this.css('border', '1px solid gray');
+		$this.css('width', '500px');
 	}
 })(jQuery);
 
