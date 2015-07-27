@@ -1,11 +1,17 @@
 (function($) {
 	$.fn.gallery = function(numberOfColumns) {
 		var $this = $(this.selector);
+		var numberOfPictures = $('.gallery-list img').length;
 		numberOfColumns = numberOfColumns || 4;
 		$this.addClass('gallery');
 
 		$('.selected').css('display', 'none');
 
+		var $pictures = $('.image-container');
+
+		for (var i = numberOfColumns - 1; i < $pictures.length; i += numberOfColumns) {
+			$(document.createElement('br')).insertAfter($($pictures[i]));
+		}
 
 		//Events
 		$('.image-container').on('click', function() {
@@ -26,11 +32,33 @@
 		});
 
 		$('#next-image').on('click', function() {
-			curDataInfo = Number($('#current-image').attr('data-info')),
-			nextCur = curDataInfo + 1;
-			$currentImageNextNode = $('.image-container img[data-info="' + nextCur + '"]');
-			$('#current-image').attr('src', $currentImageNextNode.attr('src'));
+			nextPicture($(this), 1);
+			nextPicture($('#current-image'), 1);
+			nextPicture($('#previous-image'), 1);
 		});
 
+		$('#previous-image').on('click', function() {
+			nextPicture($(this), -1);
+			nextPicture($('#current-image'), -1);
+			nextPicture($('#next-image'), -1);
+		});
+
+		$('#current-image').on('click', function() {
+			$('.gallery .blurred').removeClass('blurred');
+			$('.gallery .selected').css('display', 'none');
+		});
+
+		function nextPicture(pictureNode, direction) {
+			var dataInfo = (Number(pictureNode.attr('data-info')) + direction);
+			if (dataInfo === numberOfPictures + 1) {
+				dataInfo = 1;
+			}
+			if (dataInfo === -1 + 1) {
+				dataInfo = numberOfPictures;
+			}
+			var $nextPicture = $('.gallery-list img[data-info=' + dataInfo + ']');
+			pictureNode.attr('src', $nextPicture.attr('src'));
+			pictureNode.attr('data-info', $nextPicture.attr('data-info'));
+		}
 	};
 })(jQuery);
