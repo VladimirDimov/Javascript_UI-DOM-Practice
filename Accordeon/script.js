@@ -121,3 +121,5 @@ var item4 = acc.add('item 4');
 item4.add('item 4.1');
 acc.render();
 // debugger;
+// 
+module.exports = Accordeon;
